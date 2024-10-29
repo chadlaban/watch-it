@@ -1,14 +1,12 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
-import Home from "./pages/Home";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home.js";
 
 function App() {
   return (
-    <>
-      <Switch>
-        <Route path="/" component={Home} />
-      </Switch>
-    </>
+    <Routes>
+      <Route path="/" element={<Home />}></Route>
+    </Routes>
   );
 }
 
