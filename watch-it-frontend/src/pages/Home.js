@@ -1,5 +1,5 @@
 import React from "react";
-import NowPlaying from "../components/NowPlaying";
+import MovieSectionList from "../components/MovieSectionList";
 // import { Link } from "react-router-dom";
 
 function Home() {
@@ -10,7 +10,10 @@ function Home() {
         <p>This is the Homepage.</p>
       </article>
       <div>
-        <NowPlaying />
+        <MovieSectionList list="now-playing" />
+        <MovieSectionList list="popular" />
+        <MovieSectionList list="top_rated" />
+        <MovieSectionList list="upcoming" />
       </div>
     </>
   );
