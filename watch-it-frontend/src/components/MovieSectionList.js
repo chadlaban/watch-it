@@ -1,6 +1,7 @@
 import { useFetch } from "../hooks/FetchHook";
 import { useRef } from "react";
 import { truncateText } from "../utils/StringUtils";
+import { Link } from "react-router-dom";
 
 const MovieSectionList = (props) => {
   const [movies] = useFetch(`${window.env.API_URL}${props.list}`);
@@ -47,25 +48,27 @@ const MovieSectionList = (props) => {
             key={movie.id}
             className="bg-white rounded-lg shadow-md w-64 h-90 flex-shrink-0"
           >
-            {/* Image Container */}
-            <div className="h-40 w-full rounded-t-lg overflow-hidden">
-              <img
-                src={`${window.env.API_IMG_URL}${movie.backdrop_path}`}
-                alt="poster_image"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            {/* Movie Details */}
-            <div className="p-4">
-              <h2 className="text-lg font-semibold mb-2">{movie.title}</h2>
-              <p className="text-sm text-gray-500 mb-1">
-                Release Date: {movie.release_date}
-              </p>
-              <p className="text-gray-700 text-sm">
-                {truncateText(movie.overview, 80)}{" "}
-                {/* Adjust character limit as needed */}
-              </p>
-            </div>
+            <Link to={`/info/${movie.id}`}>
+              {/* Image Container */}
+              <div className="h-40 w-full rounded-t-lg overflow-hidden">
+                <img
+                  src={`${window.env.API_IMG_URL}${movie.backdrop_path}`}
+                  alt="poster_image"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* Movie Details */}
+              <div className="p-4">
+                <h2 className="text-lg font-semibold mb-2">{movie.title}</h2>
+                <p className="text-sm text-gray-500 mb-1">
+                  Release Date: {movie.release_date}
+                </p>
+                <p className="text-gray-700 text-sm">
+                  {truncateText(movie.overview, 80)}{" "}
+                  {/* Adjust character limit as needed */}
+                </p>
+              </div>
+            </Link>
           </div>
         ))}
       </div>
