@@ -8,25 +8,31 @@ const useFetchById = (id) => {
   useEffect(() => {
     if (!id) return;
 
+    const controller = new AbortController();
+
     const fetchData = async () => {
       setLoading(true);
       try {
-        console.log(`${window.env.API_DETAILS_URL}${id}`);
-
-        const response = await fetch(`${window.env.API_DETAILS_URL}${id}`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
+        const response = await fetch(`${window.env.API_DETAILS_URL}${id}`, {
+          signal: controller.signal,
+        });
+        if (!response.ok) throw new Error("Failed to fetch data");
         const result = await response.json();
         setData(result);
       } catch (err) {
-        setError(err.message);
+        if (err.name !== "AbortError") {
+          setError(err.message);
+        }
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
+
+    return () => {
+      controller.abort();
+    };
   }, [id]);
 
   return { data, error, loading };

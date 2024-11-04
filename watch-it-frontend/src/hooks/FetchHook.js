@@ -2,20 +2,32 @@ import { useState, useEffect } from "react";
 
 function useFetch(url) {
   const [data, setData] = useState([]);
-
-  async function fetchUrl() {
-    const response = await fetch(url);
-    const json = await response.json();
-
-    setData(json);
-  }
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchUrl();
-    // eslint-disable-next-line
-  }, []);
+    const controller = new AbortController();
 
-  return [data];
+    async function fetchUrl() {
+      try {
+        const response = await fetch(url, { signal: controller.signal });
+        if (!response.ok) throw new Error("Network response was not ok");
+        const json = await response.json();
+        setData(json);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          setError(err);
+        }
+      }
+    }
+
+    fetchUrl();
+
+    return () => {
+      controller.abort();
+    };
+  }, [url]);
+
+  return [data, error];
 }
 
 export { useFetch };
