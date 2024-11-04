@@ -6,6 +6,7 @@ import NowPlaying from "./src/config/routes/nowPlaying.js";
 import Popular from "./src/config/routes/popular.js";
 import TopRated from "./src/config/routes/topRated.js";
 import Upcoming from "./src/config/routes/upcoming.js";
+import SearchById from "./src/config/routes/searchById.js";
 
 const app = express();
 
@@ -50,4 +51,15 @@ app.get("/api/upcoming", async (req, res) => {
 
 app.listen(process.env.PORT, () => {
   console.log(`listening on port ${process.env.PORT}`);
+});
+
+// search, filter, categorize
+app.get("/info/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await SearchById(id);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
