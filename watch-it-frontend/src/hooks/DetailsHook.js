@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 const useFetchById = (id) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!id) return;
@@ -11,7 +10,6 @@ const useFetchById = (id) => {
     const controller = new AbortController();
 
     const fetchData = async () => {
-      setLoading(true);
       try {
         const response = await fetch(`${window.env.API_DETAILS_URL}${id}`, {
           signal: controller.signal,
@@ -23,8 +21,6 @@ const useFetchById = (id) => {
         if (err.name !== "AbortError") {
           setError(err.message);
         }
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -35,7 +31,7 @@ const useFetchById = (id) => {
     };
   }, [id]);
 
-  return { data, error, loading };
+  return { data, error };
 };
 
 export default useFetchById;
