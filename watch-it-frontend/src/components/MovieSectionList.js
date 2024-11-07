@@ -4,7 +4,7 @@ import { truncateText } from "../utils/StringUtils";
 import { Link } from "react-router-dom";
 
 const MovieSectionList = (props) => {
-  const [movies] = useFetch(`${window.env.API_URL}${props.list}`);
+  const [movies] = useFetch(`${process.env.REACT_APP_API_URL}${props.list}`);
   const listContainerRef = useRef(null);
 
   // Tracking
@@ -52,7 +52,7 @@ const MovieSectionList = (props) => {
               {/* Image Container */}
               <div className="h-40 w-full rounded-t-lg overflow-hidden">
                 <img
-                  src={`${window.env.API_IMG_URL}${movie.backdrop_path}`}
+                  src={`${process.env.REACT_APP_API_IMG_URL}${movie.backdrop_path}`}
                   alt="poster_image"
                   className="w-full h-full object-cover"
                 />

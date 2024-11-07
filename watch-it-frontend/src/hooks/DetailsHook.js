@@ -11,9 +11,12 @@ const useFetchById = (id) => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(`${window.env.API_DETAILS_URL}${id}`, {
-          signal: controller.signal,
-        });
+        const response = await fetch(
+          `${process.env.REACT_APP_API_DETAILS_URL}${id}`,
+          {
+            signal: controller.signal,
+          }
+        );
         if (!response.ok) throw new Error("Failed to fetch data");
         const result = await response.json();
         setData(result);
