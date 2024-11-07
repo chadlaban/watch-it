@@ -4,10 +4,10 @@ This is a project based learning, the app allows user to look into movie or show
 
 ### Tech Stack:
 
-Front-End: React.js and TailWind CSS
+Front-End: React.js and TailWind CSS<br />
 Back-End: Express.js and RESTful APIs (https://developer.themoviedb.org/docs/getting-started)
 
 ### To run project, please ensure you Node within your system. Execute these commands within each respective folder:
 
-watch-it-backend = node server.js
+watch-it-backend = node server.js<br />
 watch-it-frontend = npm start
