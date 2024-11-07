@@ -7,6 +7,7 @@ import Popular from "./src/config/routes/popular.js";
 import TopRated from "./src/config/routes/topRated.js";
 import Upcoming from "./src/config/routes/upcoming.js";
 import SearchById from "./src/config/routes/searchById.js";
+import Reviews from "./src/config/routes/reviews.js";
 
 const app = express();
 
@@ -57,8 +58,15 @@ app.listen(process.env.PORT, () => {
 app.get("/info/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const data = await SearchById(id);
-    res.json(data);
+    const [infoData, reviewData] = await Promise.all([
+      SearchById(id),
+      Reviews(id),
+    ]);
+
+    res.json({
+      info: infoData, // general info
+      reviews: reviewData, // reviews on movie
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
