@@ -17,7 +17,7 @@ export const Details = () => {
           {/* Poster Image */}
           {data.poster_path && (
             <img
-              src={`${window.env.API_IMG_URL}${data.poster_path}`}
+              src={`${process.env.REACT_APP_API_IMG_URL}${data.poster_path}`}
               alt={data.title}
               className="w-auto h-96 rounded-lg shadow-md"
             />
