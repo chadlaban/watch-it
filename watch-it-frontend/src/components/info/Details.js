@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import useFetchById from "../../hooks/DetailsHook.js";
 import MovieSectionList from "../MovieSectionList.js";
-import StringLimit from "../string/StringLimit.js";
+import Reviews from "./Reviews.js";
 
 export const Details = () => {
   const { id } = useParams();
@@ -77,26 +77,8 @@ export const Details = () => {
         </div>
       </div>
       {/* Reviews Section */}
-      <div className="max-w-5xl mx-auto p-6 bg-white border rounded-lg shadow-md mt-8">
-        <h3 className="text-2xl font-bold text-gray-700 mb-6">Reviews</h3>
-        {data.reviews.results ? (
-          <div className="space-y-6">
-            {data.reviews.results.map((review, index) => (
-              <div key={index} className="border-b border-gray-200 pb-4">
-                <h4 className="text-lg font-semibold text-gray-800">
-                  {review.author}
-                </h4>
-                <p className="text-gray-600 text-sm mb-2">
-                  {new Date(review.created_at).toLocaleDateString()}
-                </p>
-                <StringLimit review={review.content} limit={200} />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-gray-600">No reviews available.</p>
-        )}
-      </div>
+      <Reviews data={data} />
+      {/* additional sections / similar categories */}
       <MovieSectionList list="upcoming" />
     </>
   );
