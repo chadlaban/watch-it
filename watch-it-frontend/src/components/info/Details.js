@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import useFetchById from "../../hooks/DetailsHook.js";
 import MovieSectionList from "../MovieSectionList.js";
-import DOMPurify from "dompurify";
+import StringLimit from "../string/StringLimit.js";
 
 export const Details = () => {
   const { id } = useParams();
@@ -89,12 +89,7 @@ export const Details = () => {
                 <p className="text-gray-600 text-sm mb-2">
                   {new Date(review.created_at).toLocaleDateString()}
                 </p>
-                <p
-                  className="text-gray-700"
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(review.content),
-                  }}
-                />
+                <StringLimit review={review.content} limit={200} />
               </div>
             ))}
           </div>
