@@ -6,8 +6,12 @@ import NowPlaying from "./src/config/routes/nowPlaying.js";
 import Popular from "./src/config/routes/popular.js";
 import TopRated from "./src/config/routes/topRated.js";
 import Upcoming from "./src/config/routes/upcoming.js";
-import SearchById from "./src/config/routes/searchById.js";
-import Reviews from "./src/config/routes/reviews.js";
+import {
+  MovieDetails,
+  Reviews,
+  SimilarMovies,
+  Recommendations,
+} from "./src/config/routes/details.js";
 
 const app = express();
 
@@ -58,14 +62,23 @@ app.listen(process.env.PORT, () => {
 app.get("/info/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const [infoData, reviewData] = await Promise.all([
-      SearchById(id),
+    const [
+      movieInfoData,
+      movieReviewsData,
+      similarMoviesData,
+      recommendationsData,
+    ] = await Promise.all([
+      MovieDetails(id),
       Reviews(id),
+      SimilarMovies(id),
+      Recommendations(id),
     ]);
 
     res.json({
-      info: infoData, // general info
-      reviews: reviewData, // reviews on movie
+      info: movieInfoData,
+      reviews: movieReviewsData,
+      similarMovies: similarMoviesData,
+      recommendations: recommendationsData,
     });
   } catch (err) {
     res.status(500).json({ error: err.message });

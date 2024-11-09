@@ -1,13 +1,11 @@
-import { useFetch } from "../hooks/FetchHook";
+import React from "react";
 import { useRef } from "react";
-import { truncateText } from "../utils/StringUtils";
+import { truncateText } from "../../utils/StringUtils";
 import { Link } from "react-router-dom";
-import NoPostImage from "../assets/imgs/placeholder/no-poster.jpg";
+import NoPostImage from "../../assets/imgs/placeholder/no-poster.jpg";
 
-const MovieSectionList = (props) => {
-  const [movies] = useFetch(`${process.env.REACT_APP_API_URL}${props.list}`);
+export const RelatedList = (list) => {
   const listContainerRef = useRef(null);
-
   // Tracking
   const isDragging = useRef(false);
   const active = useRef(0);
@@ -34,7 +32,7 @@ const MovieSectionList = (props) => {
   return (
     <div className="px-4 py-8">
       <h1 className="text-2xl font-bold mb-4 text-center">
-        {props.list} Movies
+        {list.type} Movies
       </h1>
       <div
         ref={listContainerRef}
@@ -44,7 +42,7 @@ const MovieSectionList = (props) => {
         onMouseLeave={handleMouseUp}
         onMouseUp={handleMouseUp}
       >
-        {movies.results?.map((movie) => (
+        {list.data?.map((movie) => (
           <div
             key={movie.id}
             className="bg-white rounded-lg shadow-md w-64 h-90 flex-shrink-0"
@@ -79,5 +77,3 @@ const MovieSectionList = (props) => {
     </div>
   );
 };
-
-export default MovieSectionList;
