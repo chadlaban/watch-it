@@ -1,12 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import useFetchById from "../../hooks/DetailsHook.js";
-import MovieSectionList from "../MovieSectionList.js";
 import Reviews from "./Reviews.js";
+import { RelatedList } from "./RelatedList.js";
 
 export const Details = () => {
   const { id } = useParams();
   const { data, error } = useFetchById(id);
+
+  console.log(data);
 
   if (data === null) return <div>Loading {id}...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -78,8 +80,8 @@ export const Details = () => {
       </div>
       {/* Reviews Section */}
       <Reviews data={data} />
-      {/* additional sections / similar categories */}
-      <MovieSectionList list="upcoming" />
+      {/* Similar Movies */}
+      <RelatedList data={data.similarMovies.results} type="similar" />
     </>
   );
 };
