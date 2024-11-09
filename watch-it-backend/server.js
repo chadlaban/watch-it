@@ -10,6 +10,7 @@ import {
   MovieDetails,
   Reviews,
   SimilarMovies,
+  Recommendations,
 } from "./src/config/routes/details.js";
 
 const app = express();
@@ -61,13 +62,23 @@ app.listen(process.env.PORT, () => {
 app.get("/info/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const [movieInfoData, movieReviewsData, similarMoviesData] =
-      await Promise.all([MovieDetails(id), Reviews(id), SimilarMovies(id)]);
+    const [
+      movieInfoData,
+      movieReviewsData,
+      similarMoviesData,
+      recommendationsData,
+    ] = await Promise.all([
+      MovieDetails(id),
+      Reviews(id),
+      SimilarMovies(id),
+      Recommendations(id),
+    ]);
 
     res.json({
       info: movieInfoData,
       reviews: movieReviewsData,
       similarMovies: similarMoviesData,
+      recommendations: recommendationsData,
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
