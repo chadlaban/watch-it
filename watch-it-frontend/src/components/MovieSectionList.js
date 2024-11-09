@@ -64,8 +64,7 @@ const MovieSectionList = (props) => {
                   Release Date: {movie.release_date}
                 </p>
                 <p className="text-gray-700 text-sm">
-                  {truncateText(movie.overview, 80)}{" "}
-                  {/* Adjust character limit as needed */}
+                  {truncateText(movie.overview, 80)}
                 </p>
               </div>
             </Link>

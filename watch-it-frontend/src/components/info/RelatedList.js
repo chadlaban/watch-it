@@ -4,9 +4,7 @@ import { truncateText } from "../../utils/StringUtils";
 import { Link } from "react-router-dom";
 
 export const RelatedList = (list) => {
-  console.log(list.type);
   const listContainerRef = useRef(null);
-
   // Tracking
   const isDragging = useRef(false);
   const active = useRef(0);
@@ -64,8 +62,7 @@ export const RelatedList = (list) => {
                   Release Date: {movie.release_date}
                 </p>
                 <p className="text-gray-700 text-sm">
-                  {truncateText(movie.overview, 80)}{" "}
-                  {/* Adjust character limit as needed */}
+                  {truncateText(movie.overview, 80)}
                 </p>
               </div>
             </Link>
