@@ -2,6 +2,7 @@ import { useFetch } from "../hooks/FetchHook";
 import { useRef } from "react";
 import { truncateText } from "../utils/StringUtils";
 import { Link } from "react-router-dom";
+import NoPostImage from "../assets/imgs/placeholder/no-poster.jpg";
 
 const MovieSectionList = (props) => {
   const [movies] = useFetch(`${process.env.REACT_APP_API_URL}${props.list}`);
@@ -52,8 +53,12 @@ const MovieSectionList = (props) => {
               {/* Image Container */}
               <div className="h-40 w-full rounded-t-lg overflow-hidden">
                 <img
-                  src={`${process.env.REACT_APP_API_IMG_URL}${movie.backdrop_path}`}
-                  alt="poster_image"
+                  src={
+                    movie.backdrop_path
+                      ? `${process.env.REACT_APP_API_IMG_URL}${movie.backdrop_path}`
+                      : NoPostImage
+                  }
+                  alt={`${movie.title}-poster` || "no-poster-image"}
                   className="w-full h-full object-cover"
                 />
               </div>

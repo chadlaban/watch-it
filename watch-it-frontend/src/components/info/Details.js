@@ -3,12 +3,11 @@ import { useParams } from "react-router-dom";
 import useFetchById from "../../hooks/DetailsHook.js";
 import Reviews from "./Reviews.js";
 import { RelatedList } from "./RelatedList.js";
+import NoPostImage from "../../assets/imgs/placeholder/no-poster.jpg";
 
 export const Details = () => {
   const { id } = useParams();
   const { data, error } = useFetchById(id);
-
-  console.log(data);
 
   if (data === null) return <div>Loading {id}...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -20,8 +19,12 @@ export const Details = () => {
           {/* Poster Image */}
           {data.info.poster_path && (
             <img
-              src={`${process.env.REACT_APP_API_IMG_URL}${data.info.poster_path}`}
-              alt={data.info.title}
+              src={
+                data.info.poster_path
+                  ? `${process.env.REACT_APP_API_IMG_URL}${data.info.poster_path}`
+                  : NoPostImage
+              }
+              alt={`${data.info.title}-poster` || "no-poster-image"}
               className="w-auto h-96 rounded-lg shadow-md"
             />
           )}
