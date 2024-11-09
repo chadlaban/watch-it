@@ -82,6 +82,8 @@ export const Details = () => {
       <Reviews data={data} />
       {/* Similar Movies */}
       <RelatedList data={data.similarMovies.results} type="similar" />
+      {/* recommendations */}
+      <RelatedList data={data.recommendations.results} type="recommendations" />
     </>
   );
 };
