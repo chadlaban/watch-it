@@ -2,10 +2,12 @@ import express from "express";
 import CORS from "./src/config/middleware/middleware.js";
 import "dotenv/config";
 
-import NowPlaying from "./src/config/routes/nowPlaying.js";
-import Popular from "./src/config/routes/popular.js";
-import TopRated from "./src/config/routes/topRated.js";
-import Upcoming from "./src/config/routes/upcoming.js";
+import {
+  NowPlaying,
+  Popular,
+  TopRated,
+  Upcoming,
+} from "./src/config/routes/movies.js";
 import {
   MovieDetails,
   Reviews,
