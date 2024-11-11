@@ -151,7 +151,7 @@ app.get("/series/:id", async (req, res) => {
     res.json({
       info: seriesInfoData,
       reviews: seriesReviewsData,
-      similarMovies: similarSeriesData,
+      similarSeries: similarSeriesData,
       recommendations: recommendationsData,
     });
   } catch (err) {
