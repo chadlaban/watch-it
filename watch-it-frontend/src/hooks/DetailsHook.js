@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useFetchById = (id) => {
+const useFetchById = (id, type) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -12,7 +12,11 @@ const useFetchById = (id) => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_DETAILS_URL}${id}`,
+          `${
+            type === "movie"
+              ? process.env.REACT_APP_API_MOV_DETAILS_URL
+              : process.env.REACT_APP_API_SER_DETAILS_URL
+          }${id}`,
           {
             signal: controller.signal,
           }
@@ -32,7 +36,7 @@ const useFetchById = (id) => {
     return () => {
       controller.abort();
     };
-  }, [id]);
+  }, [id, type]);
 
   return { data, error };
 };
