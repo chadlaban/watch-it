@@ -1,8 +1,7 @@
 import "dotenv/config";
 
-const MoviesNowPlaying = async () => {
-  const url =
-    "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
+const SeriesDetails = async (id) => {
+  const url = `https://api.themoviedb.org/3/tv/${id}?language=en-US`;
   const options = {
     method: "GET",
     headers: {
@@ -17,13 +16,12 @@ const MoviesNowPlaying = async () => {
     return json;
   } catch (err) {
     console.error(err);
-    throw new Error("Failed to fetch now playing movies.");
+    throw new Error("Failed to fetch now playing series.");
   }
 };
 
-const PopularMovies = async () => {
-  const url =
-    "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+const SeriesReviews = async (id) => {
+  const url = `https://api.themoviedb.org/3/tv/${id}/reviews`;
   const options = {
     method: "GET",
     headers: {
@@ -38,13 +36,12 @@ const PopularMovies = async () => {
     return json;
   } catch (err) {
     console.error(err);
-    throw new Error("Failed to fetch popular movies.");
+    throw new Error("Failed to fetch now reviews on series.");
   }
 };
 
-const TopRatedMovies = async () => {
-  const url =
-    "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1";
+const SimilarSeries = async (id) => {
+  const url = `https://api.themoviedb.org/3/tv/${id}/similar`;
   const options = {
     method: "GET",
     headers: {
@@ -59,13 +56,12 @@ const TopRatedMovies = async () => {
     return json;
   } catch (err) {
     console.error(err);
-    throw new Error("Failed to fetch top rated movies.");
+    throw new Error("Failed to fetch now reviews on series.");
   }
 };
 
-const UpcomingMovies = async () => {
-  const url =
-    "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1";
+const SeriesRecommendations = async (id) => {
+  const url = `https://api.themoviedb.org/3/tv/${id}/recommendations`;
   const options = {
     method: "GET",
     headers: {
@@ -80,8 +76,8 @@ const UpcomingMovies = async () => {
     return json;
   } catch (err) {
     console.error(err);
-    throw new Error("Failed to fetch upcoming movies.");
+    throw new Error("Failed to fetch now reviews on series.");
   }
 };
 
-export { MoviesNowPlaying, PopularMovies, TopRatedMovies, UpcomingMovies };
+export { SeriesDetails, SeriesReviews, SimilarSeries, SeriesRecommendations };

@@ -4,8 +4,8 @@ import { truncateText } from "../utils/StringUtils";
 import { Link } from "react-router-dom";
 import NoPostImage from "../assets/imgs/placeholder/no-poster.jpg";
 
-const MovieSectionList = (props) => {
-  const [movies] = useFetch(`${process.env.REACT_APP_API_URL}${props.list}`);
+const SectionList = (props) => {
+  const [films] = useFetch(`${process.env.REACT_APP_API_URL}${props.list}`);
   const listContainerRef = useRef(null);
 
   // Tracking
@@ -33,9 +33,7 @@ const MovieSectionList = (props) => {
 
   return (
     <div className="px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4 text-center">
-        {props.list} Movies
-      </h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">{props.list}</h1>
       <div
         ref={listContainerRef}
         className="flex overflow-x-auto overflow-y-hidden space-x-4 pb-4 cursor-grab active:cursor-grabbing scrollbar-hide"
@@ -44,32 +42,37 @@ const MovieSectionList = (props) => {
         onMouseLeave={handleMouseUp}
         onMouseUp={handleMouseUp}
       >
-        {movies.results?.map((movie) => (
+        {films.results?.map((film) => (
           <div
-            key={movie.id}
+            key={film.id}
             className="bg-white rounded-lg shadow-md w-64 h-90 flex-shrink-0"
           >
-            <Link to={`/info/${movie.id}`}>
+            <Link to={`/${props.type}/${film.id}`}>
               {/* Image Container */}
               <div className="h-40 w-full rounded-t-lg overflow-hidden">
                 <img
                   src={
-                    movie.backdrop_path
-                      ? `${process.env.REACT_APP_API_IMG_URL}${movie.backdrop_path}`
+                    film.backdrop_path
+                      ? `${process.env.REACT_APP_API_IMG_URL}${film.backdrop_path}`
                       : NoPostImage
                   }
-                  alt={`${movie.title}-poster` || "no-poster-image"}
+                  alt={`${film.title}-poster` || "no-poster-image"}
                   className="w-full h-full object-cover"
                 />
               </div>
-              {/* Movie Details */}
+              {/* film Details */}
               <div className="p-4">
-                <h2 className="text-lg font-semibold mb-2">{movie.title}</h2>
+                <h2 className="text-lg font-semibold mb-2">
+                  {props.type === "movie" ? film.title : film.name}
+                </h2>
                 <p className="text-sm text-gray-500 mb-1">
-                  Release Date: {movie.release_date}
+                  Release Date:{" "}
+                  {props.type === "movie"
+                    ? film.release_date
+                    : film.first_air_date}
                 </p>
                 <p className="text-gray-700 text-sm">
-                  {truncateText(movie.overview, 80)}
+                  {truncateText(film.overview, 80)}
                 </p>
               </div>
             </Link>
@@ -80,4 +83,4 @@ const MovieSectionList = (props) => {
   );
 };
 
-export default MovieSectionList;
+export default SectionList;

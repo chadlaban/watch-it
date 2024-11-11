@@ -1,7 +1,8 @@
 import "dotenv/config";
 
-const MovieDetails = async (id) => {
-  const url = `https://api.themoviedb.org/3/movie/${id}?language=en-US`;
+const SeriesNowPlaying = async () => {
+  const url =
+    "https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=1";
   const options = {
     method: "GET",
     headers: {
@@ -20,8 +21,9 @@ const MovieDetails = async (id) => {
   }
 };
 
-const Reviews = async (id) => {
-  const url = `https://api.themoviedb.org/3/movie/${id}/reviews`;
+const OnAirSeries = async () => {
+  const url =
+    "https://api.themoviedb.org/3/tv/on_the_air?language=en-US&page=1";
   const options = {
     method: "GET",
     headers: {
@@ -36,12 +38,12 @@ const Reviews = async (id) => {
     return json;
   } catch (err) {
     console.error(err);
-    throw new Error("Failed to fetch now reviews on movie.");
+    throw new Error("Failed to fetch now playing movies.");
   }
 };
 
-const SimilarMovies = async (id) => {
-  const url = `https://api.themoviedb.org/3/movie/${id}/similar`;
+const PopularSeries = async () => {
+  const url = "https://api.themoviedb.org/3/tv/popular?language=en-US&page=1";
   const options = {
     method: "GET",
     headers: {
@@ -56,12 +58,12 @@ const SimilarMovies = async (id) => {
     return json;
   } catch (err) {
     console.error(err);
-    throw new Error("Failed to fetch now reviews on movie.");
+    throw new Error("Failed to fetch now playing movies.");
   }
 };
 
-const Recommendations = async (id) => {
-  const url = `https://api.themoviedb.org/3/movie/${id}/recommendations`;
+const TopRatedSeries = async () => {
+  const url = "https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1";
   const options = {
     method: "GET",
     headers: {
@@ -76,8 +78,8 @@ const Recommendations = async (id) => {
     return json;
   } catch (err) {
     console.error(err);
-    throw new Error("Failed to fetch now reviews on movie.");
+    throw new Error("Failed to fetch now playing movies.");
   }
 };
 
-export { MovieDetails, Reviews, SimilarMovies, Recommendations };
+export { SeriesNowPlaying, OnAirSeries, PopularSeries, TopRatedSeries };

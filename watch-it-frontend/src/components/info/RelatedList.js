@@ -32,7 +32,7 @@ export const RelatedList = (list) => {
   return (
     <div className="px-4 py-8">
       <h1 className="text-2xl font-bold mb-4 text-center">
-        {list.type} Movies
+        {list.film === "movie" ? list.type + " Movies" : list.type + " Series"}
       </h1>
       <div
         ref={listContainerRef}
@@ -42,32 +42,37 @@ export const RelatedList = (list) => {
         onMouseLeave={handleMouseUp}
         onMouseUp={handleMouseUp}
       >
-        {list.data?.map((movie) => (
+        {list.data?.map((film) => (
           <div
-            key={movie.id}
+            key={film.id}
             className="bg-white rounded-lg shadow-md w-64 h-90 flex-shrink-0"
           >
-            <Link to={`/info/${movie.id}`}>
+            <Link to={`/${list.film}/${film.id}`}>
               {/* Image Container */}
               <div className="h-40 w-full rounded-t-lg overflow-hidden">
                 <img
                   src={
-                    movie.backdrop_path
-                      ? `${process.env.REACT_APP_API_IMG_URL}${movie.backdrop_path}`
+                    film.backdrop_path
+                      ? `${process.env.REACT_APP_API_IMG_URL}${film.backdrop_path}`
                       : NoPostImage
                   }
-                  alt={`${movie.title}-poster` || "no-poster-image"}
+                  alt={`${film.title}-poster` || "no-poster-image"}
                   className="w-full h-full object-cover"
                 />
               </div>
               {/* Movie Details */}
               <div className="p-4">
-                <h2 className="text-lg font-semibold mb-2">{movie.title}</h2>
+                <h2 className="text-lg font-semibold mb-2">
+                  {list.film === "movie" ? film.title : film.name}
+                </h2>
                 <p className="text-sm text-gray-500 mb-1">
-                  Release Date: {movie.release_date}
+                  Release Date:{" "}
+                  {list.film === "movie"
+                    ? film.release_date
+                    : film.first_air_date}
                 </p>
                 <p className="text-gray-700 text-sm">
-                  {truncateText(movie.overview, 80)}
+                  {truncateText(film.overview, 80)}
                 </p>
               </div>
             </Link>

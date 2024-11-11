@@ -3,65 +3,110 @@ import CORS from "./src/config/middleware/middleware.js";
 import "dotenv/config";
 
 import {
-  NowPlaying,
-  Popular,
-  TopRated,
-  Upcoming,
+  MoviesNowPlaying,
+  PopularMovies,
+  TopRatedMovies,
+  UpcomingMovies,
 } from "./src/config/routes/movies.js";
 import {
+  SeriesNowPlaying,
+  OnAirSeries,
+  PopularSeries,
+  TopRatedSeries,
+} from "./src/config/routes/series.js";
+import {
   MovieDetails,
-  Reviews,
+  MovieReviews,
   SimilarMovies,
-  Recommendations,
-} from "./src/config/routes/details.js";
+  MovieRecommendations,
+} from "./src/config/routes/movieDetails.js";
+import {
+  SeriesDetails,
+  SeriesReviews,
+  SimilarSeries,
+  SeriesRecommendations,
+} from "./src/config/routes/seriesDetails.js";
 
 const app = express();
 
 app.use(CORS);
 
-// Endpoints
-app.get("/api/now-playing", async (req, res) => {
+// Movie Endpoints
+app.get("/api/movies-now-playing", async (req, res) => {
   try {
-    const data = await NowPlaying();
+    const data = await MoviesNowPlaying();
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-app.get("/api/popular", async (req, res) => {
+app.get("/api/popular-movies", async (req, res) => {
   try {
-    const data = await Popular();
+    const data = await PopularMovies();
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-app.get("/api/top_rated", async (req, res) => {
+app.get("/api/top-rated-movies", async (req, res) => {
   try {
-    const data = await TopRated();
+    const data = await TopRatedMovies();
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-app.get("/api/upcoming", async (req, res) => {
+app.get("/api/upcoming-movies", async (req, res) => {
   try {
-    const data = await Upcoming();
+    const data = await UpcomingMovies();
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`listening on port ${process.env.PORT}`);
+// Series Endpoints
+app.get("/api/series-now-playing", async (req, res) => {
+  try {
+    const data = await SeriesNowPlaying();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
-// search, filter, categorize
-app.get("/info/:id", async (req, res) => {
+app.get("/api/on-air", async (req, res) => {
+  try {
+    const data = await OnAirSeries();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.get("/api/top-rated-series", async (req, res) => {
+  try {
+    const data = await TopRatedSeries();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.get("/api/popular-series", async (req, res) => {
+  try {
+    const data = await PopularSeries();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Movie Details
+app.get("/movie/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const [
@@ -71,9 +116,9 @@ app.get("/info/:id", async (req, res) => {
       recommendationsData,
     ] = await Promise.all([
       MovieDetails(id),
-      Reviews(id),
+      MovieReviews(id),
       SimilarMovies(id),
-      Recommendations(id),
+      MovieRecommendations(id),
     ]);
 
     res.json({
@@ -85,4 +130,35 @@ app.get("/info/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+// Series Details
+app.get("/series/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [
+      seriesInfoData,
+      seriesReviewsData,
+      similarSeriesData,
+      recommendationsData,
+    ] = await Promise.all([
+      SeriesDetails(id),
+      SeriesReviews(id),
+      SimilarSeries(id),
+      SeriesRecommendations(id),
+    ]);
+
+    res.json({
+      info: seriesInfoData,
+      reviews: seriesReviewsData,
+      similarSeries: similarSeriesData,
+      recommendations: recommendationsData,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.listen(process.env.PORT, () => {
+  console.log(`Server is now running @PORT: ${process.env.PORT}`);
 });
