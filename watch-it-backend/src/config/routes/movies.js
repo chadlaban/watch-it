@@ -1,6 +1,6 @@
 import "dotenv/config";
 
-const NowPlaying = async () => {
+const MoviesNowPlaying = async () => {
   const url =
     "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
   const options = {
@@ -21,7 +21,7 @@ const NowPlaying = async () => {
   }
 };
 
-const Popular = async () => {
+const PopularMovies = async () => {
   const url =
     "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
   const options = {
@@ -42,7 +42,7 @@ const Popular = async () => {
   }
 };
 
-const TopRated = async () => {
+const TopRatedMovies = async () => {
   const url =
     "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1";
   const options = {
@@ -63,7 +63,7 @@ const TopRated = async () => {
   }
 };
 
-const Upcoming = async () => {
+const UpcomingMovies = async () => {
   const url =
     "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1";
   const options = {
@@ -84,4 +84,4 @@ const Upcoming = async () => {
   }
 };
 
-export { NowPlaying, Popular, TopRated, Upcoming };
+export { MoviesNowPlaying, PopularMovies, TopRatedMovies, UpcomingMovies };

@@ -3,10 +3,10 @@ import CORS from "./src/config/middleware/middleware.js";
 import "dotenv/config";
 
 import {
-  NowPlaying,
-  Popular,
-  TopRated,
-  Upcoming,
+  MoviesNowPlaying,
+  PopularMovies,
+  TopRatedMovies,
+  UpcomingMovies,
 } from "./src/config/routes/movies.js";
 import {
   MovieDetails,
@@ -22,7 +22,7 @@ app.use(CORS);
 // Endpoints
 app.get("/api/now-playing", async (req, res) => {
   try {
-    const data = await NowPlaying();
+    const data = await MoviesNowPlaying();
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -31,7 +31,7 @@ app.get("/api/now-playing", async (req, res) => {
 
 app.get("/api/popular", async (req, res) => {
   try {
-    const data = await Popular();
+    const data = await PopularMovies();
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -40,7 +40,7 @@ app.get("/api/popular", async (req, res) => {
 
 app.get("/api/top_rated", async (req, res) => {
   try {
-    const data = await TopRated();
+    const data = await TopRatedMovies();
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -49,7 +49,7 @@ app.get("/api/top_rated", async (req, res) => {
 
 app.get("/api/upcoming", async (req, res) => {
   try {
-    const data = await Upcoming();
+    const data = await UpcomingMovies();
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
