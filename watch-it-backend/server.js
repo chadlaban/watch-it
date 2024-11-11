@@ -16,17 +16,23 @@ import {
 } from "./src/config/routes/series.js";
 import {
   MovieDetails,
-  Reviews,
+  MovieReviews,
   SimilarMovies,
-  Recommendations,
-} from "./src/config/routes/details.js";
+  MovieRecommendations,
+} from "./src/config/routes/movieDetails.js";
+import {
+  SeriesDetails,
+  SeriesReviews,
+  SimilarSeries,
+  SeriesRecommendations,
+} from "./src/config/routes/seriesDetails.js";
 
 const app = express();
 
 app.use(CORS);
 
 // Movie Endpoints
-app.get("/api/now-playing", async (req, res) => {
+app.get("/api/movies-now-playing", async (req, res) => {
   try {
     const data = await MoviesNowPlaying();
     res.json(data);
@@ -35,7 +41,7 @@ app.get("/api/now-playing", async (req, res) => {
   }
 });
 
-app.get("/api/popular", async (req, res) => {
+app.get("/api/popular-movies", async (req, res) => {
   try {
     const data = await PopularMovies();
     res.json(data);
@@ -44,7 +50,7 @@ app.get("/api/popular", async (req, res) => {
   }
 });
 
-app.get("/api/top_rated", async (req, res) => {
+app.get("/api/top-rated-movies", async (req, res) => {
   try {
     const data = await TopRatedMovies();
     res.json(data);
@@ -53,7 +59,7 @@ app.get("/api/top_rated", async (req, res) => {
   }
 });
 
-app.get("/api/upcoming", async (req, res) => {
+app.get("/api/upcoming-movies", async (req, res) => {
   try {
     const data = await UpcomingMovies();
     res.json(data);
@@ -99,8 +105,8 @@ app.get("/api/popular-series", async (req, res) => {
   }
 });
 
-// search, filter, categorize
-app.get("/info/:id", async (req, res) => {
+// Movie Details
+app.get("/movie/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const [
@@ -110,15 +116,42 @@ app.get("/info/:id", async (req, res) => {
       recommendationsData,
     ] = await Promise.all([
       MovieDetails(id),
-      Reviews(id),
+      MovieReviews(id),
       SimilarMovies(id),
-      Recommendations(id),
+      MovieRecommendations(id),
     ]);
 
     res.json({
       info: movieInfoData,
       reviews: movieReviewsData,
       similarMovies: similarMoviesData,
+      recommendations: recommendationsData,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Series Details
+app.get("/series/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [
+      seriesInfoData,
+      seriesReviewsData,
+      similarSeriesData,
+      recommendationsData,
+    ] = await Promise.all([
+      SeriesDetails(id),
+      SeriesReviews(id),
+      SimilarSeries(id),
+      SeriesRecommendations(id),
+    ]);
+
+    res.json({
+      info: seriesInfoData,
+      reviews: seriesReviewsData,
+      similarMovies: similarSeriesData,
       recommendations: recommendationsData,
     });
   } catch (err) {
