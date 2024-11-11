@@ -5,9 +5,9 @@ import Reviews from "./Reviews.js";
 import { RelatedList } from "./RelatedList.js";
 import NoPostImage from "../../assets/imgs/placeholder/no-poster.jpg";
 
-export const Details = () => {
+export const Details = (prop) => {
   const { id } = useParams();
-  const { data, error } = useFetchById(id);
+  const { data, error } = useFetchById(id, prop.type);
 
   if (data === null) return <div>Loading {id}...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -32,7 +32,7 @@ export const Details = () => {
           {/* Movie Details */}
           <div className="flex-1">
             <h3 className="text-2xl font-bold text-gray-700 mb-2">
-              {data.info.title}
+              {prop.type === "movie" ? data.info.title : data.info.name}
             </h3>
             <p className="text-gray-600 italic mb-4">{data.info.tagline}</p>
             <p className="text-gray-700 mb-4">{data.info.overview}</p>
@@ -63,7 +63,11 @@ export const Details = () => {
             <div className="mt-4 grid grid-cols-2 gap-4">
               <div>
                 <h4 className="font-semibold text-gray-800">Release Date:</h4>
-                <p className="text-gray-700">{data.info.release_date}</p>
+                <p className="text-gray-700">
+                  {prop.type === "movie"
+                    ? data.info.release_date
+                    : data.info.first_air_date}
+                </p>
               </div>
               <div>
                 <h4 className="font-semibold text-gray-800">Runtime:</h4>
@@ -84,9 +88,21 @@ export const Details = () => {
       {/* Reviews Section */}
       <Reviews data={data} />
       {/* Similar Movies */}
-      <RelatedList data={data.similarMovies.results} type="similar" />
+      <RelatedList
+        data={
+          prop.type === "movie"
+            ? data.similarMovies.results
+            : data.similarSeries.results
+        }
+        type="similar"
+        film={prop.type}
+      />
       {/* recommendations */}
-      <RelatedList data={data.recommendations.results} type="recommendations" />
+      <RelatedList
+        data={data.recommendations.results}
+        type="recommendations"
+        film={prop.type}
+      />
     </>
   );
 };
