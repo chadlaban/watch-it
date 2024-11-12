@@ -4,12 +4,23 @@ import useFetchById from "../../hooks/DetailsHook.js";
 import Reviews from "./Reviews.js";
 import { RelatedList } from "./RelatedList.js";
 import NoPostImage from "../../assets/imgs/placeholder/no-poster.jpg";
+import { DetailsSkeleton } from "../LoadingState/DetailsSkeleton.js";
+import { ReviewsSkeleton } from "../LoadingState/ReviewsSkeleton.js";
+import { ListSkeleton } from "../LoadingState/ListSkeleton.js";
 
 export const Details = (prop) => {
   const { id } = useParams();
   const { data, error } = useFetchById(id, prop.type);
 
-  if (data === null) return <div>Loading {id}...</div>;
+  if (data === null)
+    return (
+      <>
+        <DetailsSkeleton />
+        <ReviewsSkeleton />
+        <ListSkeleton />
+        <ListSkeleton />
+      </>
+    );
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -87,6 +98,7 @@ export const Details = (prop) => {
           </div>
         </div>
       </div>
+
       {/* Reviews Section */}
       <Reviews data={data} />
       {/* Similar Movies */}
