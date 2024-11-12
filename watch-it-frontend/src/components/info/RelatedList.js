@@ -72,7 +72,10 @@ export const RelatedList = (list) => {
                     : film.first_air_date}
                 </p>
                 <p className="text-gray-700 text-sm">
-                  {truncateText(film.overview, 80)}
+                  {truncateText(
+                    film.overview || "No overview added to this film yet.",
+                    80
+                  )}
                 </p>
               </div>
             </Link>

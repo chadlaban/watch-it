@@ -35,7 +35,9 @@ export const Details = (prop) => {
               {prop.type === "movie" ? data.info.title : data.info.name}
             </h3>
             <p className="text-gray-600 italic mb-4">{data.info.tagline}</p>
-            <p className="text-gray-700 mb-4">{data.info.overview}</p>
+            <p className="text-gray-700 mb-4">
+              {data.info.overview || "No overview added to this film yet."}
+            </p>
 
             {/* Additional Info */}
             <div className="grid grid-cols-2 gap-4">
