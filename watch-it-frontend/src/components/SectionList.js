@@ -2,6 +2,7 @@ import { useFetch } from "../hooks/FetchHook";
 import { useRef } from "react";
 import { truncateText } from "../utils/StringUtils";
 import { Link } from "react-router-dom";
+import { ListSkeleton } from "./LoadingState/ListSkeleton";
 import NoPostImage from "../assets/imgs/placeholder/no-poster.jpg";
 
 const SectionList = (props) => {
@@ -30,6 +31,13 @@ const SectionList = (props) => {
   const handleMouseUp = () => {
     isDragging.current = false;
   };
+
+  if (films.length === 0)
+    return (
+      <>
+        <ListSkeleton />
+      </>
+    );
 
   return (
     <div className="px-4 py-8">
