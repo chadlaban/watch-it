@@ -26,6 +26,7 @@ import {
   SimilarSeries,
   SeriesRecommendations,
 } from "./src/config/routes/seriesDetails.js";
+import { SearchByKeyword } from "./src/config/routes/search.js";
 
 const app = express();
 
@@ -156,6 +157,17 @@ app.get("/series/:id", async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+// search page
+app.get("/api/search/:keyword", async (req, res) => {
+  const { keyword, page } = req.params;
+  try {
+    const data = await SearchByKeyword(keyword, page);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
