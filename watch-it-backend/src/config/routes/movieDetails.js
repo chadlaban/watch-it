@@ -33,6 +33,12 @@ const MovieReviews = async (id) => {
   try {
     const res = await fetch(url, options);
     const json = await res.json();
+    // sort reviews by date
+    if (json.results && Array.isArray(json.results)) {
+      json.results.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
+    }
     return json;
   } catch (err) {
     console.error(err);
