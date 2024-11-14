@@ -27,6 +27,10 @@ import {
   SeriesRecommendations,
 } from "./src/config/routes/seriesDetails.js";
 import { SearchByKeyword } from "./src/config/routes/search.js";
+import {
+  PersonDetails,
+  PersonTaggedImages,
+} from "./src/config/routes/personDetails.js";
 
 const app = express();
 
@@ -173,4 +177,22 @@ app.get("/api/search/:keyword", async (req, res) => {
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is now running @PORT: ${process.env.PORT}`);
+});
+
+// person details from search page
+app.get("/person/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [personInfoData, taggedImagesData] = await Promise.all([
+      PersonDetails(id),
+      PersonTaggedImages(id),
+    ]);
+
+    res.json({
+      info: personInfoData,
+      images: taggedImagesData,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });

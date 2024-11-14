@@ -4,7 +4,7 @@ import StringLimit from "../string/StringLimit.js";
 import NoPostImage from "../../assets/imgs/placeholder/no-poster.jpg";
 
 const Reviews = ({ data }) => {
-  const reviews = data.reviews.results || [];
+  const reviews = data.reviews?.results || [];
 
   const renderReview = (review, index) => (
     <div key={index} className="border-b border-gray-200 p-4">

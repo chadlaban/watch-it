@@ -25,7 +25,7 @@ function Search() {
 
       <SearchCard
         keyword={keyword}
-        data={data ? data.results : []} // only render when data exist
+        data={data && keyword ? data.results : []} // only render when data exist
         loading={loading}
         error={error}
       />
