@@ -17,7 +17,9 @@ const useFetchById = (id, type) => {
               ? process.env.REACT_APP_API_MOV_DETAILS_URL
               : type === "series"
               ? process.env.REACT_APP_API_SER_DETAILS_URL
-              : process.env.REACT_APP_API_PRSN_DETAILS_URL
+              : type === "person"
+              ? process.env.REACT_APP_API_PRSN_DETAILS_URL
+              : process.env.REACT_APP_API_TV_DETAILS_URL
           }${id}`,
           {
             signal: controller.signal,

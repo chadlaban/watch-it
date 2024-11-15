@@ -11,3 +11,12 @@ Back-End: Express.js and RESTful APIs (https://developer.themoviedb.org/docs/get
 
 watch-it-backend = node server.js<br />
 watch-it-frontend = npm start
+
+### Important env for watch-it-frontend (update 'port' based on your setup):
+
+REACT_APP_API_URL=http://localhost:${port}/api/
+REACT_APP_API_SEARCH_URL=http://localhost:${port}/api/search/
+REACT_APP_API_MOV_DETAILS_URL=http://localhost:${port}/movie/
+REACT_APP_API_SER_DETAILS_URL=http://localhost:${port}/series/
+REACT_APP_API_PRSN_DETAILS_URL=http://localhost:${port}/person/
+REACT_APP_API_IMG_URL=https://image.tmdb.org/t/p/w500

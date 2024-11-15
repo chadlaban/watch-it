@@ -4,6 +4,7 @@ import { truncateText } from "../../utils/StringUtils";
 import { Link } from "react-router-dom";
 import NoPostImage from "../../assets/imgs/placeholder/no-poster.jpg";
 
+// movies/series associated with a actor/person
 const TaggedMovieList = ({ data }) => {
   const images =
     data.images.results.filter(
@@ -71,7 +72,7 @@ const TaggedMovieList = ({ data }) => {
               {/* Movie Details */}
               <div className="p-4">
                 <h2 className="text-lg font-semibold mb-2">
-                  {film.media.original_title}
+                  {film.media.original_title || film.media.name}
                 </h2>
                 <p className="text-sm text-gray-500 mb-1">
                   Release Date:{" "}

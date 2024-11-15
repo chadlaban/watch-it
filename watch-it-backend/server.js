@@ -26,6 +26,12 @@ import {
   SimilarSeries,
   SeriesRecommendations,
 } from "./src/config/routes/seriesDetails.js";
+import {
+  TvSeriesDetails,
+  TvSeriesReviews,
+  TvSimilarSeries,
+  TvSeriesRecommendations,
+} from "./src/config/routes/tvSeriesDetails.js";
 import { SearchByKeyword } from "./src/config/routes/search.js";
 import {
   PersonDetails,
@@ -164,6 +170,33 @@ app.get("/series/:id", async (req, res) => {
   }
 });
 
+// TV Series details
+app.get("/tv/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [
+      tvSeriesInfoData,
+      tvSeriesReviewsData,
+      tvSimilarSeriesData,
+      recommendationsData,
+    ] = await Promise.all([
+      TvSeriesDetails(id),
+      TvSeriesReviews(id),
+      TvSimilarSeries(id),
+      TvSeriesRecommendations(id),
+    ]);
+
+    res.json({
+      info: tvSeriesInfoData,
+      reviews: tvSeriesReviewsData,
+      similarSeries: tvSimilarSeriesData,
+      recommendations: recommendationsData,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // search page
 app.get("/api/search/:keyword", async (req, res) => {
   const { keyword, page } = req.params;
@@ -173,10 +206,6 @@ app.get("/api/search/:keyword", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
-
-app.listen(process.env.PORT, () => {
-  console.log(`Server is now running @PORT: ${process.env.PORT}`);
 });
 
 // person details from search page
@@ -195,4 +224,8 @@ app.get("/person/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+app.listen(process.env.PORT, () => {
+  console.log(`Server is now running @PORT: ${process.env.PORT}`);
 });
