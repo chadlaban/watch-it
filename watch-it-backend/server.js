@@ -26,6 +26,12 @@ import {
   SimilarSeries,
   SeriesRecommendations,
 } from "./src/config/routes/seriesDetails.js";
+import {
+  TvSeriesDetails,
+  TvSeriesReviews,
+  TvSimilarSeries,
+  TvSeriesRecommendations,
+} from "./src/config/routes/tvSeriesDetails.js";
 import { SearchByKeyword } from "./src/config/routes/search.js";
 import {
   PersonDetails,
@@ -157,6 +163,33 @@ app.get("/series/:id", async (req, res) => {
       info: seriesInfoData,
       reviews: seriesReviewsData,
       similarSeries: similarSeriesData,
+      recommendations: recommendationsData,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// TV Series details
+app.get("/tv/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [
+      tvSeriesInfoData,
+      tvSeriesReviewsData,
+      tvSimilarSeriesData,
+      recommendationsData,
+    ] = await Promise.all([
+      TvSeriesDetails(id),
+      TvSeriesReviews(id),
+      TvSimilarSeries(id),
+      TvSeriesRecommendations(id),
+    ]);
+
+    res.json({
+      info: tvSeriesInfoData,
+      reviews: tvSeriesReviewsData,
+      similarSeries: tvSimilarSeriesData,
       recommendations: recommendationsData,
     });
   } catch (err) {
