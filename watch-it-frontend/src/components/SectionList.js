@@ -41,7 +41,7 @@ const SectionList = (props) => {
 
   return (
     <div className="px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4 text-center">{props.list}</h1>
+      <h1 className="text-2xl font-bold mb-4">{props.list}</h1>
       <div
         ref={listContainerRef}
         className="flex overflow-x-auto overflow-y-hidden space-x-4 pb-4 cursor-grab active:cursor-grabbing scrollbar-hide"
