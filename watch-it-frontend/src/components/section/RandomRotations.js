@@ -27,7 +27,7 @@ export const RandomRotations = () => {
   const currImgActive = films.results[currImg];
 
   return (
-    <div className="relative w-full h-[70vw] sm:h-[60vw] md:h-[50vw] lg:h-[40vw] xl:h-[35vw]">
+    <div className="relative z-0 w-full h-[70vw] sm:h-[60vw] md:h-[50vw] lg:h-[40vw] xl:h-[35vw]">
       <img
         src={
           currImgActive.backdrop_path &&
