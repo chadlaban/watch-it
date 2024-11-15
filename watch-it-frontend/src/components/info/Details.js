@@ -81,7 +81,7 @@ export const Details = (prop) => {
               ) : (
                 (
                   <p className="text-gray-700 mb-4">
-                    Website: {data.info.homepage}
+                    {data.info.homepage && `Website: ${data.info.homepage}`}
                   </p>
                 ) || ""
               )}
