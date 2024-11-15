@@ -208,10 +208,6 @@ app.get("/api/search/:keyword", async (req, res) => {
   }
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is now running @PORT: ${process.env.PORT}`);
-});
-
 // person details from search page
 app.get("/person/:id", async (req, res) => {
   const { id } = req.params;
@@ -228,4 +224,8 @@ app.get("/person/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+app.listen(process.env.PORT, () => {
+  console.log(`Server is now running @PORT: ${process.env.PORT}`);
 });
