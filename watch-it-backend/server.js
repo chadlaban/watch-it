@@ -14,6 +14,7 @@ import {
   PopularSeries,
   TopRatedSeries,
 } from "./src/config/routes/series.js";
+import { Trending } from "./src/config/routes/trending.js";
 import {
   MovieDetails,
   MovieReviews,
@@ -110,6 +111,15 @@ app.get("/api/top-rated-series", async (req, res) => {
 app.get("/api/popular-series", async (req, res) => {
   try {
     const data = await PopularSeries();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.get("/api/trending", async (req, res) => {
+  try {
+    const data = await Trending();
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });

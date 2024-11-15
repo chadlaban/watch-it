@@ -69,26 +69,26 @@ const TaggedMovieList = ({ data }) => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              {/* Movie Details */}
-              <div className="p-4">
-                <h2 className="text-lg font-semibold mb-2">
-                  {film.media.original_title || film.media.name}
-                </h2>
-                <p className="text-sm text-gray-500 mb-1">
-                  Release Date:{" "}
-                  {film.media.media_type === "movie"
-                    ? film.media.release_date
-                    : film.media.first_air_date}
-                </p>
-                <p className="text-gray-700 text-sm">
-                  {truncateText(
-                    film.media.overview ||
-                      "No overview added to this film yet.",
-                    80
-                  )}
-                </p>
-              </div>
             </Link>
+
+            {/* Movie Details */}
+            <div className="p-4">
+              <h2 className="text-lg font-semibold mb-2">
+                {film.media.original_title || film.media.name}
+              </h2>
+              <p className="text-sm text-gray-500 mb-1">
+                Release Date:{" "}
+                {film.media.media_type === "movie"
+                  ? film.media.release_date
+                  : film.media.first_air_date}
+              </p>
+              <p className="text-gray-700 text-sm">
+                {truncateText(
+                  film.media.overview || "No overview added to this film yet.",
+                  80
+                )}
+              </p>
+            </div>
           </div>
         ))}
       </div>

@@ -31,7 +31,7 @@ export const RelatedList = (list) => {
 
   return (
     <div className="px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4 text-center">
+      <h1 className="text-2xl font-bold mb-4">
         {list.film === "movie" ? list.type + " Movies" : list.type + " Series"}
       </h1>
       <div
@@ -60,25 +60,26 @@ export const RelatedList = (list) => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              {/* Movie Details */}
-              <div className="p-4">
-                <h2 className="text-lg font-semibold mb-2">
-                  {list.film === "movie" ? film.title : film.name}
-                </h2>
-                <p className="text-sm text-gray-500 mb-1">
-                  Release Date:{" "}
-                  {list.film === "movie"
-                    ? film.release_date
-                    : film.first_air_date}
-                </p>
-                <p className="text-gray-700 text-sm">
-                  {truncateText(
-                    film.overview || "No overview added to this film yet.",
-                    80
-                  )}
-                </p>
-              </div>
             </Link>
+
+            {/* Movie Details */}
+            <div className="p-4">
+              <h2 className="text-lg font-semibold mb-2">
+                {list.film === "movie" ? film.title : film.name}
+              </h2>
+              <p className="text-sm text-gray-500 mb-1">
+                Release Date:{" "}
+                {list.film === "movie"
+                  ? film.release_date
+                  : film.first_air_date}
+              </p>
+              <p className="text-gray-700 text-sm">
+                {truncateText(
+                  film.overview || "No overview added to this film yet.",
+                  80
+                )}
+              </p>
+            </div>
           </div>
         ))}
       </div>

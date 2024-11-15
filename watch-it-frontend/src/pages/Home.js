@@ -1,15 +1,12 @@
 import React from "react";
 import SectionList from "../components/SectionList";
+import { RandomRotations } from "../components/section/RandomRotations";
 
 function Home() {
   return (
     <>
-      <article>
-        <h1>Watch It Home</h1>
-        <p>This is the Homepage.</p>
-      </article>
+      <RandomRotations />
       <div>
-        <SectionList list="movies-now-playing" type="movie" />
         <SectionList list="popular-movies" type="movie" />
         <SectionList list="top-rated-movies" type="movie" />
         <SectionList list="upcoming-movies" type="movie" />

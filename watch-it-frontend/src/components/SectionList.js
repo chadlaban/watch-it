@@ -41,7 +41,7 @@ const SectionList = (props) => {
 
   return (
     <div className="px-4 py-8">
-      <h1 className="text-2xl font-bold mb-4 text-center">{props.list}</h1>
+      <h1 className="text-2xl font-bold mb-4">{props.list}</h1>
       <div
         ref={listContainerRef}
         className="flex overflow-x-auto overflow-y-hidden space-x-4 pb-4 cursor-grab active:cursor-grabbing scrollbar-hide"
@@ -68,25 +68,26 @@ const SectionList = (props) => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              {/* film Details */}
-              <div className="p-4">
-                <h2 className="text-lg font-semibold mb-2">
-                  {props.type === "movie" ? film.title : film.name}
-                </h2>
-                <p className="text-sm text-gray-500 mb-1">
-                  Release Date:{" "}
-                  {props.type === "movie"
-                    ? film.release_date
-                    : film.first_air_date}
-                </p>
-                <p className="text-gray-700 text-sm">
-                  {truncateText(
-                    film.overview || "No overview added to this film yet.",
-                    80
-                  )}
-                </p>
-              </div>
             </Link>
+
+            {/* film Details */}
+            <div className="p-4">
+              <h2 className="text-lg font-semibold mb-2">
+                {props.type === "movie" ? film.title : film.name}
+              </h2>
+              <p className="text-sm text-gray-500 mb-1">
+                Release Date:{" "}
+                {props.type === "movie"
+                  ? film.release_date
+                  : film.first_air_date}
+              </p>
+              <p className="text-gray-700 text-sm">
+                {truncateText(
+                  film.overview || "No overview added to this film yet.",
+                  80
+                )}
+              </p>
+            </div>
           </div>
         ))}
       </div>
