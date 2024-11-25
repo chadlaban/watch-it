@@ -1,5 +1,30 @@
 import "dotenv/config";
 
+const Series = async (page) => {
+  const url = `https://api.themoviedb.org/3/tv/popular?language=en-US&page=${page}`;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${process.env.AUTH_KEY}`,
+    },
+  };
+
+  try {
+    const res = await fetch(url, options);
+    const json = await res.json();
+    if (json.results && Array.isArray(json.results)) {
+      json.results.sort(
+        (a, b) => new Date(b.first_air_date) - new Date(a.first_air_date)
+      );
+    }
+    return json;
+  } catch (err) {
+    console.error(err);
+    throw new Error("Failed to fetch now playing movies.");
+  }
+};
+
 const SeriesNowPlaying = async () => {
   const url =
     "https://api.themoviedb.org/3/tv/airing_today?language=en-US&page=1";
@@ -38,7 +63,7 @@ const OnAirSeries = async () => {
     // sort by date
     if (json.results && Array.isArray(json.results)) {
       json.results.sort(
-        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        (a, b) => new Date(b.first_air_date) - new Date(a.first_air_date)
       );
     }
     return json;
@@ -61,6 +86,11 @@ const PopularSeries = async () => {
   try {
     const res = await fetch(url, options);
     const json = await res.json();
+    if (json.results && Array.isArray(json.results)) {
+      json.results.sort(
+        (a, b) => new Date(b.first_air_date) - new Date(a.first_air_date)
+      );
+    }
     return json;
   } catch (err) {
     console.error(err);
@@ -94,4 +124,4 @@ const TopRatedSeries = async () => {
   }
 };
 
-export { SeriesNowPlaying, OnAirSeries, PopularSeries, TopRatedSeries };
+export { Series, SeriesNowPlaying, OnAirSeries, PopularSeries, TopRatedSeries };

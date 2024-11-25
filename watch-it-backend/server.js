@@ -3,12 +3,14 @@ import CORS from "./src/config/middleware/middleware.js";
 import "dotenv/config";
 
 import {
+  Movies,
   MoviesNowPlaying,
   PopularMovies,
   TopRatedMovies,
   UpcomingMovies,
 } from "./src/config/routes/movies.js";
 import {
+  Series,
   SeriesNowPlaying,
   OnAirSeries,
   PopularSeries,
@@ -44,6 +46,30 @@ const app = express();
 app.use(CORS);
 
 // Movie Endpoints
+app.get("/api/movie", async (req, res) => {
+  try {
+    const page = Object.keys(req.query)[0];
+    const parsedPage = parseInt(page, 10);
+
+    const data = await Movies(parsedPage);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.get("/api/series", async (req, res) => {
+  try {
+    const page = Object.keys(req.query)[0];
+    const parsedPage = parseInt(page, 10);
+
+    const data = await Series(parsedPage);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 app.get("/api/movies-now-playing", async (req, res) => {
   try {
     const data = await MoviesNowPlaying();
