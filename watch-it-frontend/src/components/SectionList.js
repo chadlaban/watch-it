@@ -90,6 +90,14 @@ const SectionList = (props) => {
             </div>
           </div>
         ))}
+        <Link
+          to={`/${props.type}`}
+          className="bg-white flex items-center justify-center w-64 h-90 flex-shrink-0"
+        >
+          <div className="transform h-64 w-full bg-gray-500 hover:bg-gray-700 transition duration-500 hover:scale-125 flex justify-center items-center rounded-lg">
+            <p className="text-white text-xl">See more...</p>
+          </div>
+        </Link>
       </div>
     </div>
   );
