@@ -4,6 +4,7 @@ import NoPostImage from "../../assets/imgs/placeholder/no-poster.jpg";
 import { truncateText } from "../../utils/StringUtils";
 
 export const DetailCard = (prop) => {
+  console.log(prop);
   return (
     <div className="grid grid-cols-4 gap-4 p-4 scrollbar-hide">
       {prop.data?.map((film) => (
