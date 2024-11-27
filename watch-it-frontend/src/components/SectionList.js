@@ -53,7 +53,7 @@ const SectionList = (props) => {
         {films.results?.map((film) => (
           <div
             key={film.id}
-            className="bg-white rounded-lg shadow-md w-64 h-90 flex-shrink-0"
+            className="bg-white rounded-lg shadow-md w-64 h-90 flex-shrink-0 select-none"
           >
             <Link to={`/${props.type}/${film.id}`}>
               {/* Image Container */}
